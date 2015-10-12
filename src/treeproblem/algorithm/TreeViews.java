@@ -31,7 +31,7 @@ public class TreeViews {
 		rightView(temp);
 	}
 	
-public void leftView(List<Node> nodes) {
+	public void leftView(List<Node> nodes) {
 		
 		if(nodes == null || nodes.isEmpty()) {
 			return;
