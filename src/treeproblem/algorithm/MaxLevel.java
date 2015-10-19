@@ -68,6 +68,28 @@ public class MaxLevel {
 		return minLevelIteration(temp, minLevel);
 	}
 	
+	public static int maxLevelIteration(List<Node> nodes, int maxLevel) {
+		
+		if(nodes == null || nodes.isEmpty()) return maxLevel;
+		
+		maxLevel++;
+		List<Node> temp = new LinkedList<Node>();
+		for(Node node:nodes) {
+//			if(node.left == null && node.right == null) {
+//				isEmptyTree = true;
+//				break;
+//			}
+			if(node.left != null) {
+				temp.add(node.left);
+			}
+			if(node.right != null) {
+				temp.add(node.right);
+			}
+		}
+		return maxLevelIteration(temp, maxLevel);
+	}
+	
+	
 	public static void main(String[] args) {
 		Node root = new Node(1);
 		root.left = new Node(2);
@@ -76,7 +98,7 @@ public class MaxLevel {
 		root.right.right = new Node(5);
 		root.left.left.left = new Node(6);
 		Util.printTree(Collections.singletonList(root), 1, new MaxLevel().maxLevel(root));
-		System.out.println(minLevelIteration(Collections.singletonList(root), 0));
+		System.out.println(maxLevelIteration(Collections.singletonList(root), 0));
 	}
 	
 	

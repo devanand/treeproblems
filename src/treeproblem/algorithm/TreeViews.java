@@ -55,12 +55,12 @@ public class TreeViews {
 		leftView(temp);
 	}
 	
-	static void topView(Node root, java.util.Map<Integer, List<Integer>> m, int level) {
+	static void topViewFinder(Node root, java.util.Map<Integer, List<Integer>> m, int level, int range[]) {
 		if(root == null) {
 			return;
 		}
-//		range[0] = level>range[0]?level:range[0];
-//		range[1] = level<range[1]?level:range[1];
+		range[0] = level>range[0]?level:range[0];
+		range[1] = level<range[1]?level:range[1];
 		
 		if(m.get(level) == null) {
 			List <Integer> l = new LinkedList<Integer>();
@@ -70,67 +70,112 @@ public class TreeViews {
 			m.get(level).add(root.data);
 		}
 		
-		topView(root.left, m, level-1);
-		topView(root.right, m, level+1);
+		topViewFinder(root.left, m, level-1, range);
+		topViewFinder(root.right, m, level+1, range);
+	}
+	
+	static void topView(Node root) {
+		Map <Integer, List<Integer>> leftMap = new HashMap<>();
+		Map <Integer, List<Integer>> rightMap = new HashMap<>();
+		List<Integer> l = new LinkedList<>();
+		l.add(root.data);
+		leftMap.put(0, l);
+		
+		int range[] = new int[2];
+		range[0] = Integer.MIN_VALUE;
+		range[1] = Integer.MAX_VALUE;
+ 		topViewFinder(root.left, leftMap, -1, range);
+ 		topViewFinder(root.right, rightMap, 1, range);
+ 		
+ 		for(int i = range[1] ;i<=range[0];i++) {
+ 			if(i == 0 ) System.out.print(root.data+" ");
+ 			else if(i < 0) {
+ 				if(leftMap.get(i) != null) {
+ 					System.out.print(leftMap.get(i).get(0)+" ");
+ 				} else {
+ 					if(rightMap.get(i) != null) 
+ 						System.out.print(rightMap.get(i).get(0)+" ");
+ 				}
+ 			}
+ 			else {
+ 				if(rightMap.get(i) != null) {
+ 					System.out.print(rightMap.get(i).get(0)+" ");
+ 				} else 
+ 					if(leftMap.get(i) != null) {
+ 						System.out.print(leftMap.get(i).get(0)+" ");
+ 				}	
+ 			}
+ 		}
+ 		System.out.println();
+ 		System.out.println(leftMap);
+ 		System.out.println(rightMap);
+	}
+	
+	
+	static void bottomView(Node root) {
+		Map <Integer, List<Integer>> leftMap = new HashMap<>();
+		Map <Integer, List<Integer>> rightMap = new HashMap<>();
+		List<Integer> l = new LinkedList<>();
+		l.add(root.data);
+		leftMap.put(0, l);
+		
+		int range[] = new int[2];
+		range[0] = Integer.MIN_VALUE;
+		range[1] = Integer.MAX_VALUE;
+ 		topViewFinder(root.left, leftMap, -1, range);
+ 		topViewFinder(root.right, rightMap, 1, range);
+ 		
+ 		for(int i = range[1] ;i<=range[0];i++) {
+ 			
+	 		if(i == 0 ){
+	 			if(rightMap.get(i) != null) {
+	 				int rightSize = rightMap.get(i).size()-1;
+					System.out.print(rightMap.get(i).get(rightSize)+" ");
+	 			} else if(leftMap.get(i)!=null) {
+	 				int leftSize = leftMap.get(i).size()-1;
+ 					System.out.print(leftMap.get(i).get(leftSize)+" ");
+	 			}
+ 			}
+	 				
+	 		else if(i < 0) {
+	 				if(leftMap.get(i) != null) {
+	 					int leftSize = leftMap.get(i).size()-1;
+	 					System.out.print(leftMap.get(i).get(leftSize)+" ");
+	 				} else {
+	 					if(rightMap.get(i) != null) {
+	 						int rightSize = rightMap.get(i).size()-1;
+	 						System.out.print(rightMap.get(i).get(rightSize)+" ");
+	 					}
+	 				}
+	 			}
+			else if(i>0) {
+				if(rightMap.get(i) != null) {
+					int rightSize = rightMap.get(i).size()-1;
+					System.out.print(rightMap.get(i).get(rightSize)+" ");
+				} else 
+					if(leftMap.get(i) != null) {
+						int leftSize = leftMap.get(i).size()-1;
+						System.out.print(leftMap.get(i).get(leftSize)+" ");
+				}	
+			}
+ 		}
+ 		System.out.println();
+ 		System.out.println(leftMap);
+ 		System.out.println(rightMap);
 	}
 	
 	public static void main(String[] args) {
 		Node root = new Node(1);
 		root.left = new Node(3);
 		root.left.left = new Node(5);
-		root.left.left.left = new Node(9);
-		root.left.left.left.left = new Node(10);
-		root.left.left.left.left.left = new Node(11);
-		root.left.left.left.left.left.left = new Node(12);
-		root.left.left.left.left.left.left.left = new Node(13);
-		root.left.left.left.left.left.left.left.left = new Node(14);
+		
 		root.right = new Node(2);
 		root.right.right = new Node(7);
-		root.right.right.right = new Node(14);
-		root.right.right.left = new Node(15);
 		root.right.left = new Node(6);
-		root.left.left.right = new Node(8);
 		root.left.right = new Node(4);
-		root.left.right.left = new Node(11);
-		root.left.right.right = new Node(13);
-		root.left.right.right.right = new Node(17);
-		root.left.right.right.right.right = new Node(18);
-		root.left.right.right.right.right.right = new Node(20);
-		root.left.right.right.right.right.right.right = new Node(22);
-		root.right.left.left = new Node(12);
-		root.right.left.right = new Node(10);
 		
+		Util.printTree(Collections.singletonList(root), 1, 3);
+		bottomView(root);
 		
-		
-		Util.printTree(Collections.singletonList(root), 1, 4);
-		Map <Integer, List<Integer>> m = new HashMap<>();
-		Map <Integer, List<Integer>> m1 = new HashMap<>();
-		List<Integer> l = new LinkedList<>();
-		l.add(root.data);
-		m.put(0, l);
- 		topView(root.left, m, -1);
- 		topView(root.right, m1, 1);
- 		
- 		for(int i = -6 ;i<=5;i++) {
- 			if(i == 0 ) System.out.print(root.data+" ");
- 			else if(i < 0) {
- 				if(m.get(i) != null) {
- 					System.out.print(m.get(i).get(0)+" ");
- 				} else {
- 					System.out.print(m1.get(i).get(0)+" ");
- 				}
- 			}
- 			else {
- 				if(m1.get(i) != null) {
- 					System.out.print(m1.get(i).get(0)+" ");
- 				} else {
- 					System.out.print(m.get(i).get(0)+" ");
- 				}
- 			}
- 		}
- 		System.out.println();
- 		
- 		System.out.println(m);
- 		System.out.println(m1);
 	}
 }
