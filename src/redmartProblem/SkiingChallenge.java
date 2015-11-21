@@ -82,7 +82,8 @@ public class SkiingChallenge {
 			k++;
 			line = b.readLine();
 		}
-		System.out.println(Arrays.toString(mat[0]));
+		System.out.println(mat.length);
+		System.out.println(mat[0].length);
 		int memoDecrease[][] = new int[mat.length][mat[0].length];
 		int sumMemo[][] = new int[mat.length][mat[0].length];
 		
@@ -94,12 +95,13 @@ public class SkiingChallenge {
 		int maxPath = 0,  maxDrop = 0;
 		for(int i=0;i<memoDecrease.length;i++) {
 			for(int j=0;j<memoDecrease[i].length;j++) {
-				if(memoDecrease[i][j] > maxPath && sumMemo[i][j]>maxDrop) {
+				if(memoDecrease[i][j] >= maxPath && sumMemo[i][j]>=maxDrop) {
 					maxPath = memoDecrease[i][j];
 					maxDrop = sumMemo[i][j];
 				}
 			}
 		}
+		
 		
 		System.out.println(maxPath);
 		System.out.println(maxDrop);
