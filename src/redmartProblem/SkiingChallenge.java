@@ -82,8 +82,6 @@ public class SkiingChallenge {
 			k++;
 			line = b.readLine();
 		}
-		System.out.println(mat.length);
-		System.out.println(mat[0].length);
 		int memoDecrease[][] = new int[mat.length][mat[0].length];
 		int sumMemo[][] = new int[mat.length][mat[0].length];
 		
