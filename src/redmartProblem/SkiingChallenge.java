@@ -96,10 +96,17 @@ public class SkiingChallenge {
 		for(int i=0;i<memoDecrease.length;i++) {
 			for(int j=0;j<memoDecrease[i].length;j++) {
 				if(memoDecrease[i][j] >= maxPath) {
-					if(sumMemo[i][j]>=maxDrop) {
-						maxPath = memoDecrease[i][j];
+					if(memoDecrease[i][j] == maxPath) {
+						if(sumMemo[i][j]>maxDrop) {
+							maxPath=memoDecrease[i][j];
+							maxDrop = sumMemo[i][j];
+						}
+					}
+					else {
+						maxPath=memoDecrease[i][j];
 						maxDrop = sumMemo[i][j];
 					}
+					
 				}
 			}
 		}
