@@ -63,11 +63,12 @@ public class SkiingChallenge {
 	
 	public static void main(String[] args) throws Exception {
 		int mat[][] = new int[1000][1000];
-		
+		final long startTime = System.currentTimeMillis();
 		File f = new File(SkiingChallenge.class.getResource("map.txt").getFile());
 		FileReader f1 = new FileReader(f);
 		BufferedReader b = new BufferedReader(f1);
 		String line = b.readLine();
+		
 		int skip=0, k=0;
 		while(line != null) {
 			if(skip==0) {
@@ -82,6 +83,7 @@ public class SkiingChallenge {
 			k++;
 			line = b.readLine();
 		}
+		
 		int memoDecrease[][] = new int[mat.length][mat[0].length];
 		int sumMemo[][] = new int[mat.length][mat[0].length];
 		
@@ -90,26 +92,20 @@ public class SkiingChallenge {
 				longestDecreasingDepth(mat, memoDecrease, i, j, i, j, sumMemo);
 			}
 		}
+		
+		
 		int maxPath = 0,  maxDrop = 0;
 		for(int i=0;i<memoDecrease.length;i++) {
 			for(int j=0;j<memoDecrease[i].length;j++) {
 				if(memoDecrease[i][j] >= maxPath) {
-					if(memoDecrease[i][j] == maxPath) {
-						if(sumMemo[i][j]>maxDrop) {
-							maxPath=memoDecrease[i][j];
-							maxDrop = sumMemo[i][j];
-						}
-					}
-					else {
-						maxPath=memoDecrease[i][j];
-						maxDrop = sumMemo[i][j];
-					}
-					
+					maxPath=memoDecrease[i][j];
+					maxDrop = sumMemo[i][j];
 				}
 			}
 		}
 		
-		
+		final long endTime = System.currentTimeMillis();
+		System.out.println("Total execution time: " + (endTime - startTime));
 		System.out.println(maxPath);
 		System.out.println(maxDrop);
 		
