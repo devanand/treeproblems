@@ -8,7 +8,7 @@ public class TreeTraversal {
 		if(node == null) return;
 
 		inOrder(node.left);
-		System.out.println(node.data);
+		System.out.print(node.data);
 		inOrder(node.right);
 	}
 	
@@ -25,7 +25,7 @@ public class TreeTraversal {
 
 		postOrder(node.left);
 		postOrder(node.right);
-		System.out.println(node.data);
+		System.out.print(node.data+" ");
 	}
 	
 	public void inOrderIteration(Node root) {
