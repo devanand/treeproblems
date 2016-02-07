@@ -1,5 +1,7 @@
 package treeproblem.algorithm;
 
+import java.util.Collections;
+
 import treeproblem.node.Node;
 import treeproblem.util.Util;
 
@@ -12,36 +14,44 @@ public class IsBalanced {
 		return Math.max(left, right)+1;
 	}
 	
-	public static boolean isBalanced(Node root) {
+	public static boolean isBalancedNaive(Node root) {
 		if(root == null) return true;
 		
 		int left = maxLevel(root.left);
 		int right = maxLevel(root.right);
 		
-		if(((left>right)?(left-right):(right-left)) <= 1) return isBalanced(root.left) && isBalanced(root.right);
+		if(((left>right)?(left-right):(right-left)) <= 1) return isBalancedNaive(root.left) && isBalancedNaive(root.right);
 		
 		return false;
 		
 	}
 	
-	public static boolean isBalancedOptimized(Node root, int height) {
-		if(root == null) return true;
-		
-		int left=0, right=0;
-		boolean l = isBalancedOptimized(root.left, left);
-		boolean r = isBalancedOptimized(root.right, right);
-		
-		if(((left>right)?(left-right):(right-left)) <= 1) return true;
-		
-		else return l && r;
+	
+	
+	public static int isBalanced(Node root) {
+		if(root == null ) return 0;
+		int left = isBalanced(root.left);
+		int right = isBalanced(root.right);
+ 
+		if (left == -1 || right == -1)
+			return -1;
+ 
+		if (Math.abs(left - right) > 1) {
+			return -1;
+		}
+ 
+		return Math.max(left, right) + 1;
 	}
 	
 	public static void main(String[] args) {
 		Node node = new Node(1);
-		//node.left = new Node(2);
 		node.right = new Node(3);
 		node.right.right = new Node(4);
-		
-		System.out.println(isBalancedOptimized(node, 0));
+		node.right.left = new Node(6);
+		node.right.right.right = new Node(4);
+		node.left = new Node(4);
+		node.left.left = new Node(5);
+		Util.printTree(Collections.singletonList(node), 1, maxLevel(node));
+		System.out.println(isBalanced(node) == -1?false:true);
 	}
 }
