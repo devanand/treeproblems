@@ -10,9 +10,8 @@ public class ReversePostOrder {
 
 	static void arrayToPostOrder(int a[],Node root, int start, int end) {
 		
-		if(end<start) {
-			return;
-		}
+		if(end<start) return;
+
 		
 		root.right = new Node(a[end]);
 		int pivot = start+((end-start)/2);
