@@ -26,8 +26,6 @@ public class IsBalanced {
 		
 	}
 	
-	
-	
 	public static int isBalanced(Node root) {
 		if(root == null ) return 0;
 		int left = isBalanced(root.left);

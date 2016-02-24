@@ -37,12 +37,12 @@ public class SkiingChallenge {
 				max = bottom;
 			
 		}
+		
 		if((i-1)>=0 && mat[i-1][j]<mat[i][j]) {
 			int top = longestDecreasingDepth(mat, memo, i-1, j, i, j, sumMemo);
 			if(top>max) 
 				max = top;
 		}
-		
 		
  		if(max != 0) {
  			int temp = (mat[x][y] - mat[i][j])+sumMemo[i][j];
@@ -58,7 +58,6 @@ public class SkiingChallenge {
 			}
  			return memo[i][j] = 1;
  		}
-		
 	}
 	
 	public static void main(String[] args) throws Exception {
