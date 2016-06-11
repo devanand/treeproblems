@@ -1,10 +1,8 @@
 package treeproblem.algorithm;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import treeproblem.node.Node;
 import treeproblem.util.Util;
@@ -89,7 +87,6 @@ public class MaxLevel {
 		return maxLevelIteration(temp, maxLevel);
 	}
 	
-	
 	public static void main(String[] args) {
 		Node root = new Node(1);
 		root.left = new Node(2);
@@ -100,6 +97,4 @@ public class MaxLevel {
 		Util.printTree(Collections.singletonList(root), 1, new MaxLevel().maxLevel(root));
 		System.out.println(maxLevelIteration(Collections.singletonList(root), 0));
 	}
-	
-	
 }

@@ -13,9 +13,7 @@ public class TreeSum {
 		}
 		
 		int old = node.data;
-		
 		node.data = treeSum(node.left)+treeSum(node.right);
-		
 		return node.data+old;
 	}
 	
